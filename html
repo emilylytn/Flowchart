@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="path/to/pdf.js"></script>
+    <script src="path/to/pdf.worker.js"></script>
+    <link rel="stylesheet" type="text/css" href="path/to/pdf_viewer.css">
+
     <style>
         /* CSS styling for the webpage */
         body {
@@ -26,5 +30,36 @@
         <!-- Pop-up content for the second clickable region -->
     </div>
     <!-- Add more pop-up containers for other clickable regions as needed -->
+    <script>
+    // Get a reference to the container element
+    const pdfContainer = document.getElementById('pdf-container');
+
+    // Define the PDF file URL
+    const pdfUrl = 'path/to/your-pdf-file.pdf';
+
+    // Initialize the PDF viewer
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdfDoc => {
+        for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+            pdfDoc.getPage(pageNum).then(page => {
+                const canvas = document.createElement('canvas');
+                pdfContainer.appendChild(canvas);
+
+                // Set the canvas dimensions to fit the page
+                const viewport = page.getViewport({ scale: 1 });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                const renderContext = {
+                    canvasContext: canvas.getContext('2d'),
+                    viewport: viewport
+                };
+
+                // Render the page onto the canvas
+                page.render(renderContext);
+            });
+        }
+    });
+</script>
+
 </body>
 </html>

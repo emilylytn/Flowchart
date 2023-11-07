@@ -1,0 +1,16 @@
+// Get references to clickable regions and pop-up elements
+const clickableRegion1 = document.getElementById('clickable-region-1');
+const clickableRegion2 = document.getElementById('clickable-region-2');
+const popup1 = document.getElementById('popup1');
+const popup2 = document.getElementById('popup2');
+
+// Attach click event listeners
+clickableRegion1.addEventListener('click', () => {
+    popup1.style.display = 'block';
+});
+
+clickableRegion2.addEventListener('click', () => {
+    popup2.style.display = 'block';
+});
+
+// Add similar event listeners for other clickable regions and pop-ups
